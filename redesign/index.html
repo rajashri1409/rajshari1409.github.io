@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powertrace Technologies - Energy Management Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004d99;
+            --secondary: #00cc99;
+            --accent: #ff6b6b;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 10px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            transition: var(--transition);
+        }
+        
+        .logo:hover .logo-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+       .logo h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition);
+}
+
+.logo:hover h1 {
+    transform: translateX(5px);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+}  
+       
+.nav-menu li {
+    margin-left: 40px; /* Increased spacing */
+    position: relative;
+}
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-menu a:hover {
+           background-color: rgba(0, 102, 204, 0.1); 
+        }
+        
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+        
+        .nav-menu a:hover:after,
+        .nav-menu a.active:after {
+            width: 100%;
+        }
+        
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover:before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--primary);
+        }
+        
+        /* Page Content Styles */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 180px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite linear;
+        }
+        
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            animation: slideInLeft 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: slideInLeft 1.2s ease;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            animation: slideInLeft 1.4s ease;
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #00aa77 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 600px;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-55%) translateX(-10px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg) scale(1.1);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-image:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        
+        /* About Page Styles */
+        .about-hero {
+    background: 
+        linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%),
+        url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+       
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+        .about-content {
+            padding: 80px 0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .team-section {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid var(--light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Products Page Styles */
+       .products-hero {
+    background: 
+        linear-gradient(135deg, var(--secondary) 0%, #00aa77 100%),
+        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.products-hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 50px,
+            rgba(255,255,255,0.03) 50px,
+            rgba(255,255,255,0.03) 100px
+        );
+    animation: slideDown 20s linear infinite;
+}
+@keyframes slideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 80px 0;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-content {
+            padding: 25px;
+        }
+        
+        .product-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        /* Product Modal Styles */
+/* Product Modal Styles - Fixed Positioning */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+    padding: 80px 20px 20px 20px; /* Top padding for navbar, side padding for mobile */
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 0 auto; /* Remove top margin since we have padding */
+    padding: 0;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900px;
+    max-height: calc(100vh - 100px); /* Account for padding */
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+/* Ensure body doesn't scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(50px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 400px;
+}
+
+.modal-image {
+    background: var(--light);
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.modal-info {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modal-info h3 {
+    font-size: 2rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+}
+
+.modal-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.modal-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+.modal-features {
+    margin-bottom: 25px;
+    flex: 1;
+}
+
+.modal-features h4 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.modal-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-features li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: var(--gray);
+    line-height: 1.4;
+}
+
+.modal-features li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.modal-specs {
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+.modal-specs h4 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.spec-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.spec-label {
+    font-weight: 500;
+    color: var(--dark);
+    min-width: 140px;
+    font-size: 0.9rem;
+}
+
+.spec-value {
+    color: var(--gray);
+    text-align: right;
+    flex: 1;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+.modal-cta {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 2rem;
+    color: var(--gray);
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.9);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--primary);
+    transform: rotate(90deg);
+    background: white;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .modal {
+        padding: 80px 15px 15px 15px;
+    }
+    
+    .modal-body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    
+    .modal-image {
+        border-radius: 20px 20px 0 0;
+        padding: 30px;
+        min-height: 250px;
+    }
+    
+    .modal-image img {
+        max-height: 200px;
+    }
+    
+    .modal-info {
+        padding: 30px 25px;
+    }
+    
+    .modal-content {
+        max-height: calc(100vh - 95px);
+    }
+    
+    .specs-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .spec-item {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .spec-label {
+        min-width: auto;
+    }
+    
+    .spec-value {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 80px 10px 10px 10px;
+    }
+    
+    .modal-info {
+        padding: 25px 20px;
+    }
+    
+    .modal-info h3 {
+        font-size: 1.6rem;
+    }
+    
+    .modal-features li {
+        font-size: 0.9rem;
+    }
+}
+
+.modal-features li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.modal-specs h4 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.modal-specs div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spec-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.spec-label {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.spec-value {
+    color: var(--gray);
+}
+
+.modal-cta {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+    .modal-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-image {
+        border-radius: 20px 20px 0 0;
+        padding: 30px;
+    }
+    
+    .modal-info {
+        padding: 30px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
+        /* Consulting Page Styles */
+        .consulting-hero {
+            background: 
+        linear-gradient(135deg, var(--accent) 0%, #ff5252 100%),
+        url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+        }
+        .consulting-hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 25% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    animation: pulse 4s ease-in-out infinite alternate;
+}
+    
+.consulting-hero:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 51%);
+    background-size: 50px 50px;
+    animation: moveDiagonal 20s linear infinite;
+}
+
+@keyframes moveDiagonal {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 100%; }
+}
+        
+        .consulting-process {
+            padding: 80px 0;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 50px 0;
+        }
+        
+        .process-steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .process-step:hover .step-number {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+       
+       /* Contact Page Styles */
+.contact-hero {
+    background: 
+        linear-gradient(135deg, var(--dark) 0%, #2d2d44 100%),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 0 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(0,102,204,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0,204,153,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 20% 20%, rgba(255,107,107,0.2) 0%, transparent 50%);
+    animation: rotate 20s linear infinite;
+}
+
+.contact-hero:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(90deg, transparent 79%, rgba(255,255,255,0.1) 80%, transparent 81%),
+        linear-gradient(180deg, transparent 79%, rgba(255,255,255,0.1) 80%, transparent 81%);
+    background-size: 50px 50px;
+    animation: gridMove 15s linear infinite;
+}
+
+.contact-content {
+    padding: 80px 0;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contact-item {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-left: 4px solid var(--primary);
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-left-color: var(--secondary);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.contact-item:hover .contact-icon {
+    transform: scale(1.1) rotate(10deg);
+}
+
+.contact-details h3 {
+    color: var(--dark);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.contact-details p {
+    color: var(--gray);
+    margin-bottom: 5px;
+}
+
+.contact-details a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-details a:hover {
+    color: var(--secondary);
+}
+
+.contact-form {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.contact-form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+    text-align: center;
+}
+
+.contact-form > p {
+    text-align: center;
+    color: var(--gray);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: #f8f9fa;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    background: white;
+    transform: translateY(-2px);
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-submit {
+    text-align: center;
+}
+
+.contact-map {
+    margin-top: 50px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Social Media Section */
+.contact-social {
+    text-align: center;
+    padding: 60px 0;
+    background: var(--light);
+}
+
+.contact-social h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+.contact-social p {
+    color: var(--gray);
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-links-large {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.social-links-large a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.social-links-large a:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-info {
+        order: 2;
+    }
+    
+    .contact-form {
+        order: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+    
+    .contact-icon {
+        margin: 0 auto 15px;
+    }
+    
+    .contact-form {
+        padding: 25px;
+    }
+    
+    .social-links-large a {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+}
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin: 0 20px;
+            transition: var(--transition);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-text:before, .testimonial-text:after {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(0, 102, 204, 0.2);
+            position: absolute;
+        }
+        
+        .testimonial-text:before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-text:after {
+            bottom: -40px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 3px solid var(--light);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-image {
+                width: 45%;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+             .nav-menu li {
+        margin: 20px 0; /* Increased spacing for mobile */
+    }
+     .nav-menu a {
+        padding: 15px 20px; /* Larger touch targets */
+        font-size: 1.1rem;
+    }
+
+    
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: var(--transition);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .hero {
+                padding: 150px 0 80px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-image {
+                display: none;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .process-steps:before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo" data-page="home">
+                    <div class="logo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h1>Powertrace</h1>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" data-page="home" class="active">Home</a></li>
+                    <li><a href="#" data-page="about">About Us</a></li>
+                    <li><a href="#" data-page="products">Products</a></li>
+                    <li><a href="#" data-page="consulting">Consulting</a></li>
+                    <li><a href="#" data-page="contact">Contact</a></li>
+                    <li><button class="cta-button">Get Started</button></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page active">
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Smart Energy Management for a Sustainable Future</h2>
+                    <p>Powertrace Technologies provides cutting-edge solutions for energy monitoring, optimization, and management to help businesses reduce costs and carbon footprint.</p>
+                    <div class="hero-buttons">
+                        <button class="cta-button btn-primary">Explore Solutions</button>
+                        <button class="cta-button btn-secondary">Request Demo</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Energy Management Dashboard">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Why Choose Powertrace?</h2>
+                    <p>Our innovative approach to energy management sets us apart</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Real-time Monitoring</h3>
+                        <p>Track energy consumption patterns in real-time with our advanced monitoring systems.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data Analytics</h3>
+                        <p>Gain valuable insights from your energy data to make informed decisions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Sustainability Focus</h3>
+                        <p>Reduce your carbon footprint while optimizing energy usage and costs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Services</h2>
+                    <p>Comprehensive energy management solutions tailored to your needs</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Energy Monitoring">
+                        </div>
+                        <div class="service-content">
+                            <h3>Energy Monitoring</h3>
+                            <p>Comprehensive monitoring solutions to track and analyze energy consumption across your facilities.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Optimization Solutions">
+                        </div>
+                        <div class="service-content">
+                            <h3>Optimization Solutions</h3>
+                            <p>AI-powered optimization algorithms to reduce energy waste and improve efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Consulting Services">
+                        </div>
+                        <div class="service-content">
+                            <h3>Consulting Services</h3>
+                            <p>Expert consulting to help you develop and implement effective energy management strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What Our Clients Say</h2>
+                    <p>Hear from businesses that have transformed their energy management with Powertrace</p>
+                </div>
+                <div class="testimonials-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            <p>Powertrace's energy monitoring system helped us reduce our energy costs by 25% in the first year. The insights we gained were invaluable for our sustainability initiatives.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
+                            </div>
+                            <div class="author-info">
+                                <h4>John Doe</h4>
+                                <p>CEO, GreenTech Industries</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section" id="contact">
+            <div class="container">
+                <h2>Ready to Transform Your Energy Management?</h2>
+                <p>Join hundreds of businesses that have already optimized their energy usage with Powertrace Technologies.</p>
+                <button class="cta-button btn-primary">Get Started Today</button>
+            </div>
+        </section>
+    </section>
+
+    <!-- About Us Page -->
+    <section id="about-page" class="page">
+        <section class="about-hero">
+            <div class="container">
+                <h2>About Powertrace Technologies</h2>
+                <p>Leading the energy management revolution with innovative solutions</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Our Story</h2>
+                        <p>Founded in 2015, Powertrace Technologies emerged from a simple idea: energy management should be accessible, intelligent, and sustainable. Our team of engineers, data scientists, and sustainability experts came together to create solutions that would transform how businesses approach energy consumption.</p>
+                        <p>Today, we serve clients across multiple industries, helping them reduce costs, improve efficiency, and meet their sustainability goals. Our commitment to innovation and customer success has made us a trusted partner in energy management.</p>
+                        <button class="cta-button">Learn More About Our Mission</button>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Our Team">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Meet Our Leadership Team</h2>
+                    <p>The experts driving our innovation and success</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+                        </div>
+                        <h3>Sarah Johnson</h3>
+                        <p class="position">CEO & Founder</p>
+                        <p>With over 15 years in energy technology, Sarah leads our vision for sustainable energy solutions.</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Michael Chen">
+                        </div>
+                        <h3>Michael Chen</h3>
+                        <p class="position">CTO</p>
+                        <p>Michael oversees our technology development, ensuring we stay at the forefront of innovation.</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Elena Rodriguez">
+                        </div>
+                        <h3>Elena Rodriguez</h3>
+                        <p class="position">Head of Sustainability</p>
+                        <p>Elena ensures our solutions help clients achieve their environmental goals effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Products Page -->
+    <section id="products-page" class="page">
+        <section class="products-hero">
+            <div class="container">
+                <h2>Our Products</h2>
+                <p>Innovative solutions for every aspect of energy management</p>
+            </div>
+        </section>
+
+        <section class="products-grid">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Energy Management Solutions</h2>
+                    <p>Comprehensive products designed to optimize your energy usage</p>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="PowerMonitor Pro">
+                        </div>
+                        <div class="product-content">
+                            <h3>PowerMonitor Pro</h3>
+                            <p>Advanced real-time energy monitoring with predictive analytics.</p>
+                            <div class="product-price">Starting at $2,499</div>
+                            <button class="cta-button">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="EfficiencyOptimizer">
+                        </div>
+                        <div class="product-content">
+                            <h3>EfficiencyOptimizer</h3>
+                            <p>AI-driven system that automatically adjusts energy usage for maximum efficiency.</p>
+                            <div class="product-price">Starting at $4,999</div>
+                            <button class="cta-button">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="SustainabilityTracker">
+                        </div>
+                        <div class="product-content">
+                            <h3>SustainabilityTracker</h3>
+                            <p>Comprehensive tool for measuring and reporting your carbon footprint reduction.</p>
+                            <div class="product-price">Starting at $1,799</div>
+                            <button class="cta-button">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Modals -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+            <div class="modal-image">
+                <img id="modalProductImage" src="" alt="">
+            </div>
+            <div class="modal-info">
+                <h3 id="modalProductTitle"></h3>
+                <div class="modal-price" id="modalProductPrice"></div>
+                <div class="modal-description" id="modalProductDescription"></div>
+                <div class="modal-features">
+                    <h4>Key Features</h4>
+                    <ul id="modalProductFeatures"></ul>
+                </div>
+                <div class="modal-specs">
+                    <h4>Specifications</h4>
+                    <div id="modalProductSpecs"></div>
+                </div>
+                <button class="cta-button modal-cta">Request Quote</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-card">
+    <div class="product-image">
+        <img src="product-image.jpg" alt="PowerMonitor Pro">
+    </div>
+    <div class="product-content">
+        <h3>PowerMonitor Pro</h3>
+        <p>Advanced real-time energy monitoring with predictive analytics.</p>
+        <div class="product-price">Starting at $2,499</div>
+        <button class="cta-button">Learn More</button>
+    </div>
+</div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Consulting Page -->
+    <section id="consulting-page" class="page">
+        <section class="consulting-hero">
+            <div class="container">
+                <h2>Consulting Services</h2>
+                <p>Expert guidance to optimize your energy strategy</p>
+            </div>
+        </section>
+
+        <section class="consulting-process">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Consulting Approach</h2>
+                    <p>A structured process to ensure your energy management success</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3>Assessment</h3>
+                        <p>We analyze your current energy usage and identify optimization opportunities.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3>Strategy</h3>
+                        <p>We develop a customized energy management strategy aligned with your goals.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3>Implementation</h3>
+                        <p>Our team helps you implement the right solutions and technologies.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h3>Optimization</h3>
+                        <p>We continuously monitor and refine your strategy for maximum results.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Consulting Services</h2>
+                    <p>Comprehensive support for your energy management journey</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Energy Audit">
+                        </div>
+                        <div class="service-content">
+                            <h3>Energy Audit</h3>
+                            <p>Comprehensive assessment of your energy consumption patterns and inefficiencies.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Strategy Development">
+                        </div>
+                        <div class="service-content">
+                            <h3>Strategy Development</h3>
+                            <p>Customized energy management roadmap aligned with your business objectives.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Implementation Support">
+                        </div>
+                        <div class="service-content">
+                            <h3>Implementation Support</h3>
+                            <p>Hands-on assistance with deploying and integrating energy management solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Contact Page -->
+<section id="contact-page" class="page">
+    <section class="contact-hero">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Visit Our Office</h3>
+                        <p>123 Energy Street</p>
+                        <p>Tech City, TC 12345</p>
+                        <p>United States</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <p>+1 (555) 123-4567</p>
+                        <p>+1 (555) 987-6543</p>
+                        <p>Mon-Fri, 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:info@powertrace.com">info@powertrace.com</a></p>
+                        <p><a href="mailto:support@powertrace.com">support@powertrace.com</a></p>
+                        <p>We reply within 24 hours</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        <p>Saturday: 10:00 AM - 4:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <p>Fill out the form below and we'll get back to you shortly</p>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email *</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" class="form-control" placeholder="What is this regarding?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message *</label>
+                        <textarea id="message" class="form-control" placeholder="Tell us how we can help you..." required></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit" class="cta-button">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-map">
+        <div class="container">
+            <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 15px;"></i>
+            <h3>Find Us on Map</h3>
+            <p>Visit our headquarters in Tech City</p>
+        </div>
+    </section>
+
+    <section class="contact-social">
+        <div class="container">
+            <h3>Follow Us</h3>
+            <p>Stay connected with us on social media for updates and news</p>
+            <div class="social-links-large">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </section>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Powertrace</h3>
+                    <p>Leading the way in smart energy management solutions for a sustainable future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="about">About Us</a></li>
+                        <li><a href="#" data-page="products">Products</a></li>
+                        <li><a href="#" data-page="consulting">Consulting</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Energy Monitoring</a></li>
+                        <li><a href="#">Optimization Solutions</a></li>
+                        <li><a href="#">Consulting Services</a></li>
+                        <li><a href="#">Implementation Support</a></li>
+                        <li><a href="#">Training Programs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Energy Street, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@powertrace.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Powertrace Technologies. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Page Navigation
+        document.querySelectorAll('a[data-page]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetPage = this.getAttribute('data-page');
+                if (!targetPage) return;
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-menu a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Hide all pages
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show target page
+                document.getElementById(`${targetPage}-page`).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+        
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .service-card, .team-member, .product-card');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.feature-card, .service-card, .team-member, .product-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Product Modal Functionality
+const productModal = document.getElementById('productModal');
+const closeModal = document.querySelector('.close-modal');
+
+// Product data with better images
+const products = {
+    powermonitor: {
+        title: "PowerMonitor Pro",
+        price: "Starting at $2,499",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+        description: "Advanced real-time energy monitoring system with predictive analytics and AI-driven insights for optimal energy management across multiple facilities.",
+        features: [
+            "Real-time energy consumption tracking",
+            "Predictive maintenance alerts",
+            "AI-powered analytics dashboard",
+            "Multi-site monitoring capability",
+            "Customizable reporting templates",
+            "Mobile app integration",
+            "Automated energy audits",
+            "Cost-saving recommendations"
+        ],
+        specs: {
+            "Compatibility": "All energy systems",
+            "Data Accuracy": "99.9%",
+            "Update Frequency": "Real-time",
+            "Support": "24/7 monitoring",
+            "Integration": "REST API available",
+            "Mobile App": "iOS & Android",
+            "Data Retention": "5 years",
+            "Security": "Enterprise-grade"
+        }
+    },
+    efficiencyoptimizer: {
+        title: "EfficiencyOptimizer",
+        price: "Starting at $4,999",
+        image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+        description: "AI-driven system that automatically adjusts energy usage patterns for maximum efficiency, cost savings, and sustainability.",
+        features: [
+            "Automatic energy optimization",
+            "Machine learning algorithms",
+            "Cost reduction analytics",
+            "Peak demand management",
+            "Automated scheduling",
+            "Energy consumption forecasting",
+            "Load balancing",
+            "Carbon emission tracking"
+        ],
+        specs: {
+            "AI Model": "Proprietary neural network",
+            "Savings Potential": "Up to 35%",
+            "ROI Period": "6-12 months",
+            "Setup Time": "2-4 weeks",
+            "Compliance": "ISO 50001 certified",
+            "Algorithm Updates": "Monthly",
+            "Reporting": "Customizable",
+            "Scalability": "Unlimited sites"
+        }
+    },
+    sustainabilitytracker: {
+        title: "SustainabilityTracker",
+        price: "Starting at $1,799",
+        image: "https://www.freepik.com/free-vector/organic-flat-csr-concept-illustrated_13404488.htm#fromView=keyword&page=1&position=2&uuid=3f83d41d-5f8e-4226-8622-e3cf856ac0b8&query=Sustainability",
+        description: "Comprehensive tool for measuring, tracking, and reporting your carbon footprint reduction and sustainability metrics with industry benchmarking.",
+        features: [
+            "Carbon footprint calculation",
+            "Sustainability reporting",
+            "ESG compliance tracking",
+            "Environmental impact analysis",
+            "Green certification support",
+            "Benchmarking against industry",
+            "Regulatory compliance",
+            "Stakeholder reporting"
+        ],
+        specs: {
+            "Reporting Standards": "GRI, SASB, TCFD",
+            "Data Sources": "Multiple integration points",
+            "Update Frequency": "Daily",
+            "Certification Support": "LEED, BREEAM, ISO 14001",
+            "Export Formats": "PDF, Excel, API",
+            "Benchmarking": "Industry-specific",
+            "Compliance": "Global standards",
+            "User Licenses": "Unlimited"
+        }
+    }
+};
+
+// Add click events to Learn More buttons
+document.querySelectorAll('.product-card .cta-button').forEach((button, index) => {
+    button.addEventListener('click', function() {
+        const productKeys = Object.keys(products);
+        const productKey = productKeys[index];
+        openProductModal(products[productKey]);
+    });
+});
+
+// Open modal function - Fixed
+function openProductModal(product) {
+    document.getElementById('modalProductImage').src = product.image;
+    document.getElementById('modalProductTitle').textContent = product.title;
+    document.getElementById('modalProductPrice').textContent = product.price;
+    document.getElementById('modalProductDescription').textContent = product.description;
+    
+    // Add features
+    const featuresList = document.getElementById('modalProductFeatures');
+    featuresList.innerHTML = '';
+    product.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        featuresList.appendChild(li);
+    });
+    
+    // Add specifications with better formatting
+    const specsContainer = document.getElementById('modalProductSpecs');
+    specsContainer.innerHTML = '';
+    specsContainer.className = 'specs-grid';
+    
+    for (const [key, value] of Object.entries(product.specs)) {
+        const specItem = document.createElement('div');
+        specItem.className = 'spec-item';
+        specItem.innerHTML = `
+            <span class="spec-label">${key}:</span>
+            <span class="spec-value">${value}</span>
+        `;
+        specsContainer.appendChild(specItem);
+    }
+    
+    // Show modal
+    productModal.style.display = 'block';
+    document.body.classList.add('modal-open');
+    
+    // Scroll to top of modal content
+    productModal.scrollTop = 0;
+}
+
+// Close modal function
+function closeProductModal() {
+    productModal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+}
+
+// Event listeners
+closeModal.addEventListener('click', closeProductModal);
+
+window.addEventListener('click', function(event) {
+    if (event.target === productModal) {
+        closeProductModal();
+    }
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeProductModal();
+    }
+});
+    </script>
+</body>
+</html>
